@@ -39,7 +39,7 @@ jobs:
         echo "::set-output name=response::$response"
 
     - name: Show CURL Result
-      run: echo "CURL Result: ${{ steps.curl_request.outputs.response }}"
+      run: echo ${{ steps.curl_request.outputs.response }}
 
     - name: Stop and remove Docker container
       run: docker stop $(docker ps -q --filter ancestor=sharp-heic-layer) && docker rm $(docker ps -aq --filter ancestor=sharp-heic-layer)
