@@ -17,7 +17,13 @@ jobs:
       run: docker build -t sharp-heic-layer .
     
     - name: Run Docker container
-      run: docker run -d -p 9000:8080 sharp-heic-layer && sleep 5 && curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations"
+      run: docker run -d -p 9000:8080 sharp-heic-layer
+
+    - name: Wait for container to start
+      run: sleep 5
+
+    - name: Test Lambda function locally
+      run: curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d "{\"key\": \"value\"}"
 
     - name: Stop and remove Docker container
       run: docker stop $(docker ps -q --filter ancestor=sharp-heic-layer) && docker rm $(docker ps -aq --filter ancestor=sharp-heic-layer)
