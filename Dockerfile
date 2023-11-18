@@ -35,6 +35,10 @@ RUN ls .aws-sam/build/SharpHEICLayer/lib
 
 RUN ls .aws-sam/build/SharpHEICLayer/nodejs
 
+COPY .aws/build /opt/
+
+RUN ls /opt/
+
 # Set the CMD to your handler (could also be done as a parameter override outside of the Dockerfile)
 
 CMD [ "app.handler" ]
