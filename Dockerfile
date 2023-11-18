@@ -29,6 +29,10 @@ RUN npm run build
 # Copy function code
 COPY examples/src/index.js ${LAMBDA_TASK_ROOT}/app.js
 
+RUN ls .aws-sam/build/SharpHEICLayer
+
+RUN ls .aws-sam/build
+
 # Set the CMD to your handler (could also be done as a parameter override outside of the Dockerfile)
 
 CMD [ "app.handler" ]
