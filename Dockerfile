@@ -35,7 +35,7 @@ RUN ls .aws-sam/build/SharpHEICLayer/lib
 
 RUN ls .aws-sam/build/SharpHEICLayer/nodejs
 
-COPY .aws/build /opt/
+COPY .aws-sam/build /opt/
 
 RUN ls /opt/
 
