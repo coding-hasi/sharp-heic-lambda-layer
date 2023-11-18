@@ -22,12 +22,24 @@ jobs:
     - name: Wait for container to start
       run: sleep 5
     
-    - name: Test Lambda function locally
+    - name: Test Lambda function locally 1
       run: |
         curl -X POST \
              -H "Content-Type: application/json" \
              -d '{"key": "value"}' \
              http://localhost:9000/2015-03-31/functions/function/invocations
+    
+    - name: Test Lambda function locally 2
+      id: curl_request
+      run: |
+        response=$(curl -X POST \
+                       -H "Content-Type: application/json" \
+                       -d '{"key": "value"}' \
+                       http://localhost:9000/2015-03-31/functions/function/invocations)
+        echo "::set-output name=response::$response"
+
+    - name: Show CURL Result
+      run: echo "CURL Result: ${{ steps.curl_request.outputs.response }}"
 
     - name: Stop and remove Docker container
       run: docker stop $(docker ps -q --filter ancestor=sharp-heic-layer) && docker rm $(docker ps -aq --filter ancestor=sharp-heic-layer)
