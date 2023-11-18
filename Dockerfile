@@ -22,6 +22,8 @@ RUN rm aws-sam-cli.zip && rm -rf sam-installation
 # Display SAM CLI version for verification
 RUN sam --version
 
+EXPOSE 8080
+
 COPY . ${LAMBDA_TASK_ROOT}
 
 RUN npm run build
@@ -35,7 +37,7 @@ RUN ls .aws-sam/build/SharpHEICLayer/lib
 
 RUN ls .aws-sam/build/SharpHEICLayer/nodejs
 
-RUN cp -r .aws-sam/build /opt/
+RUN cp -r .aws-sam/build/ /opt/
 
 RUN ls /opt/
 
