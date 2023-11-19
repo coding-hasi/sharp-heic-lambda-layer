@@ -25,7 +25,7 @@ jobs:
 
     - name: Run Docker Container with Volume Mount
       run: |
-        docker run -d -v "$(pwd)/docker-mount:/var/task" -p 9000:8080 sharp-heic-layer
+        docker run -d -v "$(pwd)/docker-mount:/opt/" -p 9000:8080 sharp-heic-layer
 
     - name: Show Contents After Docker Run
       run: ls -l docker-mount
