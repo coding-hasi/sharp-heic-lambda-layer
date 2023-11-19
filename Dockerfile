@@ -47,6 +47,10 @@ RUN cp -r .aws-sam/build/SharpHEICLayer/* /opt/
 
 RUN ls /opt/
 
+RUN cd ${LAMBDA_TASK_ROOT}/.aws-sam/build/SharpHEICLayer && zip -r build.zip . *
+
+RUN ls -la ${LAMBDA_TASK_ROOT}/.aws-sam/build/SharpHEICLayer
+
 # Set the CMD to your handler (could also be done as a parameter override outside of the Dockerfile)
 
 CMD [ "app.handler" ]
