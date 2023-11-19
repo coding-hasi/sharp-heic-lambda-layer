@@ -1,5 +1,7 @@
 FROM --platform=linux/x86_64 public.ecr.aws/lambda/nodejs:16
 
+WORKDIR /var/task
+
 # Update the package manager
 RUN yum update -y
 
