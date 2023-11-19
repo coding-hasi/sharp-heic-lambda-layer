@@ -35,7 +35,7 @@ jobs:
 
     - name: Run Docker Container with Volume Mount
       run: |
-        docker run -d -p 9000:8080 sharp-heic-layer
+        docker run -d -p 9000:8080 cpandax/sharp-heic-layer
 
     - name: Wait for container to start
       run: sleep 5
@@ -60,4 +60,4 @@ jobs:
         echo "$response"
 
     - name: Stop and remove Docker container
-      run: docker stop $(docker ps -q --filter ancestor=sharp-heic-layer) && docker rm $(docker ps -aq --filter ancestor=sharp-heic-layer)
+      run: docker stop $(docker ps -q --filter ancestor=cpandax/sharp-heic-layer) && docker rm $(docker ps -aq --filter ancestor=cpandax/sharp-heic-layer)
