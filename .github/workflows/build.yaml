@@ -59,5 +59,8 @@ jobs:
                        http://localhost:9000/2015-03-31/functions/function/invocations)
         echo "$response"
 
+    - name: Copy build artifact to host
+      run: docker cp $(docker ps -q --filter ancestor=cpandax/sharp-heic-layer):/var/task/.aws-sam/build/SharpHEICLayer/build.zip $(pwd)/build.zip && pwd && ls -la
+
     - name: Stop and remove Docker container
       run: docker stop $(docker ps -q --filter ancestor=cpandax/sharp-heic-layer) && docker rm $(docker ps -aq --filter ancestor=cpandax/sharp-heic-layer)
