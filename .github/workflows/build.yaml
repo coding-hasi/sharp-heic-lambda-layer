@@ -15,9 +15,20 @@ jobs:
 
     - name: Build Docker image
       run: docker build -t sharp-heic-layer .
-    
-    - name: Run Docker container
-      run: docker run -d -p 9000:8080 sharp-heic-layer
+
+
+    - name: Create Docker Mount Folder
+      run: mkdir docker-mount
+
+    - name: Show Contents Before Docker Run
+      run: ls -l docker-mount
+
+    - name: Run Docker Container with Volume Mount
+      run: |
+        docker run -d -v "$(pwd)/docker-mount:/var/task/.aws-sam/build/SharpHEICLayer" -p 9000:8080 sharp-heic-layer
+
+    - name: Show Contents After Docker Run
+      run: ls -l docker-mount
 
     - name: Wait for container to start
       run: sleep 5
