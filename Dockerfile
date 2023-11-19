@@ -35,13 +35,15 @@ RUN npm run build
 # Copy function code
 COPY examples/src/index.js ${LAMBDA_TASK_ROOT}/app.js
 
+COPY examples/src/test-input.heic ${LAMBDA_TASK_ROOT}/test-input.heic
+
 RUN ls .aws-sam/build/SharpHEICLayer
 
 RUN ls .aws-sam/build/SharpHEICLayer/lib
 
 RUN ls .aws-sam/build/SharpHEICLayer/nodejs
 
-RUN cp -r .aws-sam/build/ /opt/
+RUN cp -r .aws-sam/build/SharpHEICLayer/* /opt/
 
 RUN ls /opt/
 
