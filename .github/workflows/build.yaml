@@ -17,11 +17,11 @@ jobs:
       run: docker build -t sharp-heic-layer .
 
 
-    - name: Create Docker Mount Folder
-      run: mkdir docker-mount
+    # - name: Create Docker Mount Folder
+    #   run: mkdir docker-mount
 
-    - name: Show Contents Before Docker Run
-      run: ls -l docker-mount
+    # - name: Show Contents Before Docker Run
+    #   run: ls -l docker-mount
 
     - name: Run Docker Container with Volume Mount
       run: |
