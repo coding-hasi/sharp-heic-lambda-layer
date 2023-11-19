@@ -25,8 +25,7 @@ jobs:
 
     - name: Run Docker Container with Volume Mount
       run: |
-        docker run -d -v "$(pwd)/docker-mount:/opt/" -p 9000:8080 sharp-heic-layer
-        docker cp sharp-heic-layer:/var/task/ ./docker-mount/
+        docker run -d -v "$(pwd)/docker-mount:/var/task/" -p 9000:8080 sharp-heic-layer
 
     - name: Wait for container to start
       run: sleep 5
