@@ -28,6 +28,8 @@ EXPOSE 8080
 
 COPY . ${LAMBDA_TASK_ROOT}
 
+RUN ls -la && pwd
+
 RUN npm run build
 
 # Copy function code
