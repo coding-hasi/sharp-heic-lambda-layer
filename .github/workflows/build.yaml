@@ -18,41 +18,48 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Build Docker image
-      run: docker build -t sharp-heic-layer .
+    - name: Login to Docker Hub
+      run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
 
-
-    - name: Create Docker Mount Folder
-      run: mkdir docker-mount
-
-    - name: Show Contents Before Docker Run
-      run: ls -l docker-mount
-
-    - name: Run Docker Container with Volume Mount
+    - name: Build and push Docker image
       run: |
-        docker run -d -v "$(pwd)/docker-mount:/var/task/" -p 9000:8080 sharp-heic-layer
+        docker build -t cpandax/sharp-heic-layer:latest .
+        docker push cpandax/sharp-heic-layer:latest
 
-    - name: Wait for container to start
-      run: sleep 5
+    # - name: Build Docker image
+    #   run: docker build -t sharp-heic-layer .
 
-    - name: Show Contents After Docker Run
-      run: ls -l docker-mount
+    # - name: Create Docker Mount Folder
+    #   run: mkdir docker-mount
+
+    # - name: Show Contents Before Docker Run
+    #   run: ls -l docker-mount
+
+    # - name: Run Docker Container with Volume Mount
+    #   run: |
+    #     docker run -d -v "$(pwd)/docker-mount:/var/task/" -p 9000:8080 sharp-heic-layer
+
+    # - name: Wait for container to start
+    #   run: sleep 5
+
+    # - name: Show Contents After Docker Run
+    #   run: ls -l docker-mount
     
-    - name: Test Lambda function locally 1
-      run: |
-        curl -X POST \
-             -H "Content-Type: application/json" \
-             -d '{"key": "value"}' \
-             http://localhost:9000/2015-03-31/functions/function/invocations
+    # - name: Test Lambda function locally 1
+    #   run: |
+    #     curl -X POST \
+    #          -H "Content-Type: application/json" \
+    #          -d '{"key": "value"}' \
+    #          http://localhost:9000/2015-03-31/functions/function/invocations
     
-    - name: Test Lambda function locally 2
-      id: curl_request
-      run: |
-        response=$(curl -X POST \
-                       -H "Content-Type: application/json" \
-                       -d '{"key": "value"}' \
-                       http://localhost:9000/2015-03-31/functions/function/invocations)
-        echo "$response"
+    # - name: Test Lambda function locally 2
+    #   id: curl_request
+    #   run: |
+    #     response=$(curl -X POST \
+    #                    -H "Content-Type: application/json" \
+    #                    -d '{"key": "value"}' \
+    #                    http://localhost:9000/2015-03-31/functions/function/invocations)
+    #     echo "$response"
 
-    - name: Stop and remove Docker container
-      run: docker stop $(docker ps -q --filter ancestor=sharp-heic-layer) && docker rm $(docker ps -aq --filter ancestor=sharp-heic-layer)
+    # - name: Stop and remove Docker container
+    #   run: docker stop $(docker ps -q --filter ancestor=sharp-heic-layer) && docker rm $(docker ps -aq --filter ancestor=sharp-heic-layer)
