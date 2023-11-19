@@ -17,21 +17,22 @@ jobs:
       run: docker build -t sharp-heic-layer .
 
 
-    # - name: Create Docker Mount Folder
-    #   run: mkdir docker-mount
+    - name: Create Docker Mount Folder
+      run: mkdir docker-mount
 
-    # - name: Show Contents Before Docker Run
-    #   run: ls -l docker-mount
+    - name: Show Contents Before Docker Run
+      run: ls -l docker-mount
 
     - name: Run Docker Container with Volume Mount
       run: |
         docker run -d -v "$(pwd)/docker-mount:/opt/" -p 9000:8080 sharp-heic-layer
-
-    - name: Show Contents After Docker Run
-      run: ls -l docker-mount
+        docker cp sharp-heic-layer:/var/task/ ./docker-mount/
 
     - name: Wait for container to start
       run: sleep 5
+
+    - name: Show Contents After Docker Run
+      run: ls -l docker-mount
     
     - name: Test Lambda function locally 1
       run: |
