@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      VERSION: 1.0.0
 
     steps:
     - name: Checkout repository
@@ -61,6 +63,12 @@ jobs:
 
     - name: Copy build artifact to host
       run: docker cp $(docker ps -q --filter ancestor=cpandax/sharp-heic-layer):/var/task/.aws-sam/build/SharpHEICLayer/build.zip $(pwd)/build.zip && pwd && ls -la
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: build-artifact
+        path: build.zip
 
     - name: Stop and remove Docker container
       run: docker stop $(docker ps -q --filter ancestor=cpandax/sharp-heic-layer) && docker rm $(docker ps -aq --filter ancestor=cpandax/sharp-heic-layer)
