@@ -83,9 +83,6 @@ jobs:
         asset_path: ./build.zip
         asset_name: build.zip
         asset_content_type: application/zip
-
-    - name: Show Release URL
-      run: echo "Release URL: ${{ steps.create_release.outputs.release_url }}"
     
     - name: Upload artifact
       uses: actions/upload-artifact@v2
