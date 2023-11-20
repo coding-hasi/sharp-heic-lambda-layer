@@ -1,4 +1,4 @@
-FROM --platform=linux/x86_64 public.ecr.aws/lambda/nodejs:16
+FROM --platform=linux/x86_64 public.ecr.aws/lambda/nodejs:18
 
 WORKDIR /var/task
 
